@@ -191,6 +191,8 @@ function init() {
 function doCacheBusiness(versionCallback){
   navigator.serviceWorker && navigator.serviceWorker.register('./sw.js').then(function(registration) {
     registration.addEventListener('updatefound',function(){
+      console.log("New version found.")
+      registration.waiting?.postMessage({ type: 'SKIP_WAITING' });
       caches.delete('the-magic-cache');
       window.location.reload(true);
     })

@@ -21,7 +21,7 @@ self.addEventListener('install', function(e) {
 
 self.addEventListener('fetch', function(event) {
   if(event.request.url.endsWith("/version")){
-    event.respondWith(new Response("0.1.3", {
+    event.respondWith(new Response("0.1.4", {
       status: 200,
       statusText: "OK" //
     }));
