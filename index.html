@@ -80,10 +80,10 @@
           <input type="range" v-model="bgDarken" min="0" max="100" class="slider">
         </label>
       </section>
-      <section class="form" v-if="mode=='ext'">
+      <section class="form">
         <h4>About</h4></br>
         <p>Version: {{version}}</p></br>
-        <p>Build Number: {{buildNumber}}</p></br>
+        <p v-if="mode=='ext'">Build Number: {{buildNumber}}</p></br>
       </section>
     </div>
     
