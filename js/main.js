@@ -197,6 +197,6 @@ function doCacheBusiness(versionCallback){
     console.log('Service worker registered with scope: ', registration.scope);
     setTimeout(()=>{    
       versionCallback();
-    }, 1000);
+    }, 2000);
   });
 }
