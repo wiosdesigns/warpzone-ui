@@ -21,13 +21,16 @@ self.addEventListener('install', function(e) {
 
 self.addEventListener('fetch', async function(event) {
   if(event.request.url.endsWith("/version")){
-    event.respondWith(new Response("0.1", {
+    event.respondWith(new Response("0.1.1", {
       status: 200,
       statusText: "OK" //
     }));
   } else { 
     const cachedResponse = await caches.match(event.request);
-    if (cachedResponse) return cachedResponse;
-    return fetch(event.request); 
+    if (cachedResponse) {
+      event.respondWith(cachedResponse);    
+    } else {
+      event.respondWith(fetch(event.request));
+    }
   }
 });
