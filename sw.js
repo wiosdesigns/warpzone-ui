@@ -8,7 +8,6 @@ self.addEventListener('install', function(e) {
         '/js/main.js',
         '/js/vue.global.prod.js',
         '/css/main.css',
-        '/assets/bg.jpg',
         '/assets/logo.png',
         '/assets/cantarell.ttf',
         '/assets/fira-code-regular.ttf',
@@ -21,7 +20,7 @@ self.addEventListener('install', function(e) {
 
 self.addEventListener('fetch', function(event) {
   if(event.request.url.endsWith("/version")){
-    event.respondWith(new Response("0.1.4", {
+    event.respondWith(new Response("0.1.5", {
       status: 200,
       statusText: "OK" //
     }));
