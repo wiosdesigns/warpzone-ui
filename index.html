@@ -1,0 +1,117 @@
+<!doctype html>
+<html>
+<head>
+  <title>WarpZone New Tab</title>
+  <link rel="shortcut icon" href="favicon.ico"/>
+  <link rel="stylesheet" type="text/css" href="/css/main.css"/>
+  <script src="/js/extension.js"></script>
+  <script src="/js/vue.global.prod.js"></script>
+  <script src="/js/main.js"></script>
+</head>
+<body onload="init()">
+  <div class="backdrop"></div>
+  <div class="backdrop-cover"></div>
+  <div id="appContainer">
+    
+    <div class="screen" v-bind:class="{active: screen=='home'}" id="home">
+      <form v-on:submit.prevent="openActiveLink">
+        <input type="text" name="search" 
+          autocomplete="off" spellcheck="false" placeholder="Search..." 
+          v-model="query" 
+          v-on:keydown="navigate"
+          >
+      </form>
+      <div class="results">
+        <h3 v-if="topSites.length">Top Sites</h3>
+        <div class="result" v-for="result in topSites" v-bind:class="{active: activeIndex==result.idx}">
+          <a v-bind:href="result.url" v-bind:target="linkTarget" v-bind:id="'result-link-'+result.idx">
+            <p>{{result.title}}</p>
+            <p>{{result.url}}</p>
+          </a>
+        </div>
+        <h3 v-if="bookmarkResults.length">Bookmarks</h3>
+        <div class="result" v-for="result in bookmarkResults" v-bind:class="{active: activeIndex==result.idx}">
+          <a v-bind:href="result.url" v-bind:target="linkTarget" v-bind:id="'result-link-'+result.idx">
+            <p>{{result.title}}</p>
+            <p>{{result.url}}</p>
+          </a>
+        </div>
+        <h3 v-if="historyResults.length">History</h3>
+        <div class="result" v-for="result in historyResults" v-bind:class="{active: activeIndex==result.idx}">
+          <a v-bind:href="result.url" v-bind:target="linkTarget" v-bind:id="'result-link-'+result.idx">
+            <p>{{result.title}}</p>
+            <p>{{result.url}}</p>
+          </a>
+        </div>
+      </div>
+    </div>
+    
+    <div class="screen" v-bind:class="{active: screen=='settings'}" id="settings">
+      <div class="screen-title">
+        <button v-on:click="goto('home')">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" 
+            fill="none" stroke="#ffffff" stroke-width="2" 
+            stroke-linecap="round" stroke-linejoin="round" 
+            class="feather arrow-left">
+            <line x1="19" y1="12" x2="5" y2="12"></line>
+            <polyline points="12 19 5 12 12 5"></polyline>
+          </svg>
+        </button>
+        <h3>Settings</h3>
+      </div>
+      <form v-on:submit.prevent="changeBgImage()" class="form">
+        <label>
+          <h4>
+            Background Image URL
+            <span class="help-tooltip" title="Leave this empty for default background">?</span>
+          </h4>
+          <input type="url" v-model="bgImage" spellcheck="false">
+        </label>
+        <button>
+          Set
+        </button>
+      </form>
+      <section class="form">
+        <label>
+          <h4>
+            Background Darkness
+          </h4>
+          <input type="range" v-model="bgDarken" min="0" max="100" class="slider">
+        </label>
+      </section>
+      <section class="form" v-if="mode=='ext'">
+        <h4>About</h4></br>
+        <p>Version: {{version}}</p></br>
+        <p>Build Number: {{buildNumber}}</p></br>
+      </section>
+    </div>
+    
+    <div class="title">
+      <img src="/assets/logo.png" class="logo">
+      <h1>WarpZone</h1>
+      <button v-on:click="goto('settings')" title="Settings">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" 
+          fill="none" stroke="#ffffff" stroke-width="2" 
+          stroke-linecap="round" stroke-linejoin="round" 
+          class="feather settings">
+          <circle cx="12" cy="12" r="3"></circle>
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+        </svg>
+        <!--<span>Settings</span>-->
+      </button>
+    </div>  
+    
+    
+    <div class="sidebar">
+      <textarea v-model="notes" spellcheck="false"></textarea>
+    </div>
+    
+  </div>
+  
+  
+  
+  
+    
+    
+</body>
+</html>
