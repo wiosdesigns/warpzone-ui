@@ -19,18 +19,17 @@ self.addEventListener('install', function(e) {
   );
 });
 
-self.addEventListener('fetch', async function(event) {
+self.addEventListener('fetch', function(event) {
   if(event.request.url.endsWith("/version")){
-    event.respondWith(new Response("0.1.1", {
+    event.respondWith(new Response("0.1.2", {
       status: 200,
       statusText: "OK" //
     }));
   } else { 
-    const cachedResponse = await caches.match(event.request);
-    if (cachedResponse) {
-      event.respondWith(cachedResponse);    
-    } else {
-      event.respondWith(fetch(event.request));
-    }
+    event.respondWith(
+      caches.match(event.request).then(function(response) {
+        return response || fetch(event.request);
+      });
+    );
   }
 });
