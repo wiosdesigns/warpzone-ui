@@ -1,4 +1,4 @@
-version = "0.1.9"; 
+version = "0.1.10"; 
 self.addEventListener('install', function(e) {
   console.log(`Service Worker v${version} Installed`);
   e.waitUntil(
@@ -15,6 +15,7 @@ self.addEventListener('install', function(e) {
         '/assets/cantarell.ttf',
         '/assets/fira-code-regular.ttf',
         '/assets/jost-bold.otf',
+        '/assets/bg.jpg',
         '/favicon.ico'
       ]);
     })

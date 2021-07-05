@@ -138,7 +138,7 @@ function init() {
         if(response.status==200){
           this.version = version;        
         } else {
-          this.version = "0.1.9f";
+          this.version = "0.1.10f";
         }
       }
     },
