@@ -135,7 +135,11 @@ function init() {
       async getVersion(){
         const response = await fetch("/version");
         const version = await response.text();
-        this.version = version;
+        if(response.status==200){
+          this.version = version;        
+        } else {
+          this.version = "0.1.9f";
+        }
       }
     },
     computed: {
@@ -193,8 +197,9 @@ function doCacheBusiness(versionCallback){
     registration.addEventListener('updatefound',function(){
       console.log("New version found.")
       registration.waiting?.postMessage({ type: 'SKIP_WAITING' });
-      caches.delete('the-magic-cache');
-      window.location.reload(true);
+      //console.log("deleting old cache");
+      //caches.delete('the-magic-cache');
+      //window.location.reload(true);
     })
     console.log('Service worker registered with scope: ', registration.scope);
     setTimeout(()=>{    

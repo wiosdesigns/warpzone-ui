@@ -1,6 +1,9 @@
+version = "0.1.9"; 
 self.addEventListener('install', function(e) {
+  console.log(`Service Worker v${version} Installed`);
   e.waitUntil(
     caches.open('the-magic-cache').then(function(cache) {
+      console.log("Caching Resources");
       return cache.addAll([
         '/',
         '/index.html',
@@ -20,7 +23,7 @@ self.addEventListener('install', function(e) {
 
 self.addEventListener('fetch', function(event) {
   if(event.request.url.endsWith("/version")){
-    event.respondWith(new Response("0.1.5", {
+    event.respondWith(new Response(version, {
       status: 200,
       statusText: "OK" //
     }));
