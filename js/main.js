@@ -37,7 +37,7 @@ function init() {
         if(this.mode=="web"){
           this.results.push({
             type: "topSites",
-            url: "https://wios.xyz",
+            url: "https://chrome.google.com/webstore/detail/warpzone/nlnbnjepaghlpnpbkceckedocjlapibg",
             title: "This could be your chrome new tab page. Download the extension now!"
           });
           return;
@@ -62,12 +62,12 @@ function init() {
           if(query){
             this.results.push({
               type: "bookmarks",
-              url: "https://wios.xyz",
+              url: "https://chrome.google.com/webstore/detail/warpzone/nlnbnjepaghlpnpbkceckedocjlapibg",
               title: "Results from your bookmarks will appear here."
             });
             this.results.push({
               type: "history",
-              url: "https://wios.xyz",
+              url: "https://chrome.google.com/webstore/detail/warpzone/nlnbnjepaghlpnpbkceckedocjlapibg",
               title: "Results from your history will appear here."
             });
           } else {
@@ -138,7 +138,7 @@ function init() {
         if(response.status==200){
           this.version = version;        
         } else {
-          this.version = "0.1.10f";
+          this.version = "0.1.11f";
         }
       }
     },

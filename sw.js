@@ -1,4 +1,4 @@
-version = "0.1.10"; 
+version = "0.1.11"; 
 self.addEventListener('install', function(e) {
   console.log(`Service Worker v${version} Installed`);
   e.waitUntil(
