@@ -49,6 +49,7 @@ body{
   background: var(--dark1);
   color: var(--light1);
   height: 100vh;
+  overflow: hidden;
 }
 .backdrop{
   position: fixed;
