@@ -38,6 +38,7 @@ html{scroll-behavior: smooth;}
   font-family: main;
   font-weight: 200;
   margin: 0;
+  overflow: hidden;
 }
 b,.bold, h1{
   font-family: bold;
